@@ -1,0 +1,7 @@
+{
+  "mode": "staging",
+  "target_table": "staging_partner_import",
+  "batch_size": 1000,
+  "required_headers": ["external_ref", "name", "email"],
+  "allow_direct_table_write": false
+}

@@ -1,0 +1,4 @@
+external_ref,name,default_code,list_price,type
+PRODUCT-00001,Sample Product 1,SP-001,10.00,consu
+PRODUCT-00002,Sample Product 2,SP-002,20.00,consu
+PRODUCT-00003,Sample Product 3,SP-003,30.00,consu
