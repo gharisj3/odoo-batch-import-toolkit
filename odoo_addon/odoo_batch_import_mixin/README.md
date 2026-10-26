@@ -20,18 +20,24 @@ CSV -> validation -> PostgreSQL staging table -> Odoo ORM processing
 ## Example inheritance
 
 ```python
+from odoo import api, models
+
+
+class Partner(models.Model):
+    _name = "res.partner"
+    _inherit = ["res.partner", "odoo.batch.import.mixin"]
+
+    def _batch_import_prepare_values(self, row):
+        return {"name": row.name, "email": row.email, "phone": row.phone}
+
+
 class PartnerImportWizard(models.TransientModel):
     _name = "partner.import.wizard"
     _inherit = ["odoo.batch.import.mixin"]
 
-    def _batch_import_prepare_values(self, row):
-        return {
-            "name": row.name,
-            "email": row.email,
-            "phone": row.phone,
-        }
-
+    @api.model
     def action_process_staging_batch(self):
+        # staging.partner.import must be implemented in your own addon.
         rows = self.env["staging.partner.import"].search([("status", "=", "pending")], limit=1000)
         records = self.env["res.partner"]._batch_import_create_records(rows, batch_size=1000)
         self._batch_import_update_status(rows, "done")

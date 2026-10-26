@@ -1,5 +1,7 @@
 # odoo-batch-import-toolkit
 
+**Status: CSV validation and staging helpers.** CSV checks, dry-run/live PostgreSQL insert helpers and an abstract Odoo mixin are implemented. Concrete staging models and ORM mappings must be supplied by the integrating addon. Status/error/timestamp helpers are not an immutable audit trail. Example benchmark numbers are illustrative; unit tests do not establish live database performance or Odoo compatibility across versions.
+
 Utilities for validating large CSV imports, loading them into PostgreSQL staging tables, and processing staged rows safely through Odoo ORM helpers.
 
 Normal Odoo imports can become slow around 10,000+ rows because every record may trigger ORM validation, computed fields, access checks, mail/thread behavior, automation, constraints, and module-specific logic. Those protections matter. This toolkit helps technical consultants and Odoo developers separate high-volume data loading from business-safe record creation.
